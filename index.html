@@ -73,11 +73,8 @@
             //  Needless to say, graphics (C)opyright Namco
 
         },
-        
-        var score = 0;
-        var scoreString = '';
-        var scoreText;
-        
+        var text;
+        var score;       
         
         
         create: function () {
@@ -111,8 +108,8 @@
             this.pacman.play('munch');
             this.move(Phaser.LEFT);
         
-            scoreString = 'Score : ';
-            scoreText = game.add.text(10, 10, scoreString + score, { font: '34px Arial', fill: '#fff' });
+            
+            text = game.add.text(12, 23, 'Score: 0', { font: '34px Arial', fill: '#fff' });
             
            
         
@@ -247,8 +244,8 @@
         scoreSelect: function (pacman, dot){
             
             dot.kill();
-             score += 10;
-            scoreText.text = scoreString + score;
+            score += 10;
+            text.text = "Score: " + score;
         }
         
    
