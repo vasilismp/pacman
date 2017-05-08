@@ -227,9 +227,10 @@
         eatDot: function (pacman, dot) {
 
             dot.kill();
+            this.sound.play('eatghost');
             score += 10;
             scoreText.text = 'Score: ' + score;
-            this.sound.play('eatghost');
+            
 
             if (this.dots.total === 0)
             {
