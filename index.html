@@ -69,7 +69,7 @@
             this.load.image('tiles', 'assets/pacman-tiles.png');
             this.load.spritesheet('pacman', 'assets/pacman.png', 32, 32);
             this.load.tilemap('map', 'assets/pacman-map.json', null, Phaser.Tilemap.TILED_JSON);
-            this.load.audio('eatghost', 'assets/eatghost.mp3');
+            
             //  Needless to say, graphics (C)opyright Namco
 
         },
@@ -235,8 +235,7 @@
         eatDot: function (pacman, dot) {
 
             dot.kill();
-            this.sound.play('eatghost');
-
+            
             if (this.dots.total === 0)
             {
                 this.dots.callAll('revive');
