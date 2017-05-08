@@ -241,11 +241,15 @@
                 this.dots.callAll('revive');
             }
             
-            score += 10;
-            scoreText.text = scoreString + score;
+           
 
         },
-        
+        scoreSelect: function (pacman, dot){
+            
+            dot.kill();
+             score += 10;
+            scoreText.text = scoreString + score;
+        }
         
    
 
