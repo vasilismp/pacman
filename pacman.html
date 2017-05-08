@@ -17,6 +17,7 @@
     <script type="text/javascript">
 
     var game = new Phaser.Game(448, 496, Phaser.AUTO);
+    var score = 0;
     var scoreText;
     var Pacman = function (game) {
 
@@ -225,6 +226,8 @@
         eatDot: function (pacman, dot) {
 
             dot.kill();
+            score += 10;
+            scoreText.text = 'Score: ' + score;
 
             if (this.dots.total === 0)
             {
@@ -233,6 +236,8 @@
             
 
         },
+        
+       
             
         update: function () {
           
