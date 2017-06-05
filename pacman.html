@@ -20,7 +20,6 @@
     var score = 0;
     var scoreText;
     var livesText;
-    var ghost;
     var Pacman = function (game) {
 
         this.map = null;
@@ -67,7 +66,6 @@
 
             this.load.image('dot', 'assets/dot.png');
             this.load.image('tiles', 'assets/pacman-tiles.png');
-            this.load.image('orangeghost', 'assets/orangeghost.png');
             this.load.spritesheet('pacman', 'assets/pacman.png', 32, 32);
             this.load.tilemap('map', 'assets/pacman-map.json', null, Phaser.Tilemap.TILED_JSON);
             this.load.audio('eatdot', 'assets/eatdot.mp3');
@@ -93,10 +91,7 @@
             this.dots.setAll('x', 6, false, false, 1);
             this.dots.setAll('y', 6, false, false, 1);
             
-            this.ghost = game.add.sprite(game.map.randomX, 200, 'orangeghost');
-            this.physics.arcade.enable(this.ghost);
-            this.camera.follow(this.ghost);
-            this.input.onDown.add(moveGhost,this);
+            
             
          
 
@@ -251,25 +246,13 @@
             
 
         },
-        
-        moveGhost: function(){
-            this.camera.follow();
-            this.physics.arcade.moveTopacman(ghost, 100);
-        },
-        
-        render: function() {
-
-    this.debug.text("distance: " + this.physics.arcade.distanceTopacman(ghost), 32, 32);
-
-},
-        
-        
-       
+            
             
         update: function () {
           
             this.physics.arcade.collide(this.pacman, this.layer);
             this.physics.arcade.overlap(this.pacman, this.dots, this.eatDot, null, this);
+            this.physics.moveToObject(displayObject, objectToFollow, speed, maxTime)
 
             this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
             this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
