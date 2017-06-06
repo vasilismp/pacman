@@ -28,6 +28,7 @@
     var livesText;
     var bonusText;
         
+    var timer, timerEvent, text;
    
         
         
@@ -140,6 +141,13 @@
             livesText = game.add.text(0, 20, 'lives: 3', { font: '10px Arial', fill: '#fff', align: 'left' });
 	    bonusText = game.add.text(5, 30, 'bonus: 0', { font: '10px Arial', fill: '#fff', align: 'left'});
             this.sound.play('theme');
+		
+	timer = game.time.create();
+	 timerEvent = timer.add(Phaser.Timer.MINUTE * 1 + Phaser.Timer.SECOND * 30, this.endTimer, this);	
+		timer.start();
+		
+		
+		
         },
 
         checkKeys: function () {
@@ -289,7 +297,26 @@
             
 
         },
-	    
+	    render: function () {
+        // If our timer is running, show the time in a nicely formatted way, else show 'Done!'
+        if (timer.running) {
+            game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms) / 1000)), 2, 14, "#ff0");
+        }
+        else {
+            game.debug.text("Done!", 2, 14, "#0f0");
+        }
+    },
+    endTimer: function() {
+        // Stop the timer when the delayed event triggers
+        timer.stop();
+    },
+    formatTime: function(s) {
+        // Convert seconds (s) to a nicely formatted and padded time string
+        var minutes = "0" + Math.floor(s / 60);
+        var seconds = "0" + (s - minutes * 60);
+        return minutes.substr(-2) + ":" + seconds.substr(-2);   
+    }
+};
            
           
             
