@@ -78,6 +78,8 @@
 
             this.load.image('dot', 'assets/dot.png');
             this.load.image('dot2', 'assets/dot2.png');
+	    this.load.image('teleport1', 'assets/teleport1.png');
+            this.load.image('teleport2', 'assets/teleport2.png');
             this.load.image('tiles', 'assets/pacman-tiles.png');
            
             
@@ -100,6 +102,9 @@
 
             this.dots = this.add.physicsGroup();
             this.dots2 = this.add.physicsGroup();
+					
+	    this.teleports1 = this.add.physicsGroup();
+            this.teleports2 = this.add.physicsGroup();
 
             this.map.createFromTiles(7, this.safetile, 'dot', this.layer, this.dots);
             this.map.createFromTiles(35, this.safetile, 'dot2', this.layer, this.dots2);
@@ -110,6 +115,14 @@
             
             this.dots2.setAll('x', 6, false, false, 1);
             this.dots2.setAll('y', 6, false, false, 1);
+		
+	    this.teleports1.setAll('x', 0, false, false, 1);
+            this.teleports1.setAll('y', 0, false, false, 1);
+            this.teleports2.setAll('x', 0, false, false, 1);
+            this.teleports2.setAll('y', 0, false, false, 1);
+		
+		
+		
          
 
             //  Pacman should collide with everything except the safe tile
@@ -280,10 +293,17 @@
             
 
         },
+	    
+           enterteleport1: function (pacman, teleport1) {
+           pacman.reset((25 * 16) + 8, (4 * 16) + 8);
+           this.move(Phaser.LEFT);
            
-           
-	   
-        
+	   },
+           enterteleport2: function (pacman, teleport2) {
+             pacman.reset((2 * 16) + 8, (4 * 16) + 8);
+             this.move(Phaser.RIGHT);
+        },
+
           
             
             
@@ -300,8 +320,9 @@
          
             this.physics.arcade.collide(this.pacman, this.layer);
             this.physics.arcade.overlap(this.pacman, this.dots, this.eatDot, null, this);
-		this.physics.arcade.overlap(this.pacman, this.dots2, this.eatDot2, null, this);
-            
+	    this.physics.arcade.overlap(this.pacman, this.dots2, this.eatDot2, null, this);
+            this.physics.arcade.overlap(this.pacman, this.teleport1, this.enterteleport1, null, this);
+            this.physics.arcade.overlap(this.pacman, this.teleport2, this.enterteleport2, null, this);
 
             this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
             this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
