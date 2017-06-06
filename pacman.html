@@ -72,6 +72,7 @@
             //this.load.crossOrigin = 'anonymous';
 
             this.load.image('dot', 'assets/dot.png');
+            this.load.image('dot2', 'assets/dot2.png');
             this.load.image('tiles', 'assets/pacman-tiles.png');
            
             
@@ -93,14 +94,17 @@
             this.layer = this.map.createLayer('Pacman');
 
             this.dots = this.add.physicsGroup();
+            this.dots2 = this.add.physicsGroup();
 
             this.map.createFromTiles(7, this.safetile, 'dot', this.layer, this.dots);
+            this.map.createFromTiles(35, this.safetile, 'dot2', this.layer, this.dots2);
 
             //  The dots will need to be offset by 6px to put them back in the middle of the grid
             this.dots.setAll('x', 6, false, false, 1);
             this.dots.setAll('y', 6, false, false, 1);
             
-            
+            this.dots2.setAll('x', 6, false, false, 1);
+            this.dots2.setAll('y', 6, false, false, 1);
          
 
             //  Pacman should collide with everything except the safe tile
@@ -254,6 +258,27 @@
             
 
         },
+        
+        
+        
+        eatDot2: function (pacman, dot2) {
+           dot2.kill();
+           this.sound.play('eatdot');
+            score += 20;
+            scoreText.text = 'score: ' + score;
+            
+
+            if (this.dots.total === 0)
+            {
+                this.dots.callAll('revive');
+            }
+            
+
+        },
+           
+           
+	   
+        
           
             
             
